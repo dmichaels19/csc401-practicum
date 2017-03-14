@@ -1,5 +1,4 @@
 # CSC401 Practicum - Algorithm Animations  
-## by Devin Michaels
 
 These are my projects for the CSC401 Practicum at the University of Miami.
 The course is designed to be taken alongside CSC317 Algorithms. It is an
