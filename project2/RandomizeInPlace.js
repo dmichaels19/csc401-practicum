@@ -1,5 +1,8 @@
-
-function drawArray() {
+function setCellColor(cell, color) {
+  document.getElementById('a'+cell).style.background = color ;
+}
+function stepZero() {
+  var n = 16;
   a = new Array(n);
   var i;
   for (i=0; i<n; i++) {
@@ -8,12 +11,15 @@ function drawArray() {
   for (i=1; i<17; i++) {
     setElementValue('array'+i, a[i-1]) ;
   }
+  for (i=1; i<17; i++) {
+    document.getElementById('a'+i).style.background = "grey";
+    document.getElementById('a'+i).style.color = "black" ;
+    setElementValue('array'+i, a[i-1]) ;
+  }
+  var step = 1;
+  document.getElementById("codeLine1").style.background = codeColor;
+  document.getElementById("codeLine2").style.background = codeColor;
 }
-
-function setCellColor(cell, color) {
-  document.getElementById('a'+cell).style.background = color ;
-}
-
 function stepAlgo() {
   switch(step) {
   case 1:

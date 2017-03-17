@@ -1,59 +1,151 @@
-<div id="array">
-  <div class="arraycell" id="a1">
-    <div id="array1" class="arraytext"></div>
-  </div>
-  <div class="arraycell" id="a2">
-    <div id="array2" class="arraytext"></div>
-  </div>
-  <div class="arraycell" id="a3">
-    <div id="array3" class="arraytext"></div>
-  </div>
-  <div class="arraycell" id="a4">
-    <div id="array4" class="arraytext"></div>
-  </div>
-  <div class="arraycell" id="a5">
-    <div id="array5" class="arraytext"></div>
-  </div>
-  <div class="arraycell" id="a6">
-    <div id="array6" class="arraytext"></div>
-  </div>
-  <div class="arraycell" id="a7">
-    <div id="array7" class="arraytext"></div>
-  </div>
-  <div class="arraycell" id="a8">
-    <div id="array8" class="arraytext"></div>
-  </div>
-  <div class="arraycell" id="a9">
-    <div id="array9" class="arraytext"></div>
-  </div>
-  <div class="arraycell" id="a10">
-    <div id="array10" class="arraytext"></div>
-  </div>
-  <div class="arraycell" id="a11">
-    <div id="array11" class="arraytext"></div>
-  </div>
-  <div class="arraycell" id="a12">
-    <div id="array12" class="arraytext"></div>
-  </div>
-  <div class="arraycell" id="a13">
-    <div id="array13" class="arraytext"></div>
-  </div>
-  <div class="arraycell" id="a14">
-    <div id="array14" class="arraytext"></div>
-  </div>
-  <div class="arraycell" id="a15">
-    <div id="array15" class="arraytext"></div>
-  </div>
-  <div class="arraycell" id="a16">
-    <div id="array16" class="arraytext"></div>
-  </div>
-</div>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="CSC401 Practicum Homepage">
+    <meta name="author" content="Devin Michaels">
+    <meta property="og:url"                content="http://web.cs.miami.edu/home/dmic401/" />
+    <meta property="og:type"               content="website" />
+    <meta property="og:title"              content="Randomize In Place" />
+    <meta property="og:description"        content="CSC401 Practicum Homepage for Devin Michaels" />
+    <meta property="og:image"              content="" />
 
-<span id="codeLine1">for i = 1 to A.length</span>
-  <span id="codeLine2">swap A[i] with A[Random(i,A.length)]</span>
+    <title>Randomize In Place</title>
+    <style type="text/css">
+      body {
+         font-family: "Trebuchet MS", Skia, "Lucida Sans Unicode", sans-serif;
+         font-size: 16px;
+         margin: 2.5em auto 5em 5% ;
+         width: 90%;
+      }
 
+      #header {
+         margin: 3em 0 ;
+         border: 3px #369;
+         border-style: solid solid ;
+         padding: 0em  2em 0 ;
+         text-align: center ;
+      }
 
-<button style="border: solid red 2px; background: #eef;"
-onclick="stepZero()">&nbsp;Restart&nbsp;
-<button style="border: solid red 2px; background: #fee;"
-onclick="stepAlgo()">&nbsp;Next&nbsp;
+      #header .title {
+         font-size: 1.6em ;
+         margin-bottom: 0 ;
+      }
+
+      #footer {
+         margin: 3em 0 ;
+         /*border: 2px #036;*/
+         border: 3px #369;
+         border-style: solid solid ;
+         padding: .7em ;
+
+      }
+
+      #footer img {
+         border: none ;
+      }
+
+      .section {
+         font-size: 1.1em ;
+         font-weight: bold ;
+      }
+
+      a {
+         color: #339 ;
+         text-decoration: none ;
+      }
+
+      .mybox {
+         border: 3px #369;
+         border-style: solid solid ;
+         padding: 1.5em ;
+         margin: 2em 0 ;
+      }
+
+      .prebox {
+         padding: 1em ;
+         background: #ffc;
+         overflow: scroll;
+      }
+
+      .arraytext {
+         float: left;
+         text-align: center;
+         width: 100%;
+         margin-top: .5em ;
+         font-size: 1.5em ;
+      }
+
+      .arraycell {
+        float: left;
+        width: 3em ;
+        height: 3em ;
+        background: #999 ;
+      }
+    </style>
+  </head>
+  <body onload="stepZero();">
+    <div id="array">
+      <div class="arraycell" id="a1">
+        <div id="array1" class="arraytext"></div>
+      </div>
+      <div class="arraycell" id="a2">
+        <div id="array2" class="arraytext"></div>
+      </div>
+      <div class="arraycell" id="a3">
+        <div id="array3" class="arraytext"></div>
+      </div>
+      <div class="arraycell" id="a4">
+        <div id="array4" class="arraytext"></div>
+      </div>
+      <div class="arraycell" id="a5">
+        <div id="array5" class="arraytext"></div>
+      </div>
+      <div class="arraycell" id="a6">
+        <div id="array6" class="arraytext"></div>
+      </div>
+      <div class="arraycell" id="a7">
+        <div id="array7" class="arraytext"></div>
+      </div>
+      <div class="arraycell" id="a8">
+        <div id="array8" class="arraytext"></div>
+      </div>
+      <div class="arraycell" id="a9">
+        <div id="array9" class="arraytext"></div>
+      </div>
+      <div class="arraycell" id="a10">
+        <div id="array10" class="arraytext"></div>
+      </div>
+      <div class="arraycell" id="a11">
+        <div id="array11" class="arraytext"></div>
+      </div>
+      <div class="arraycell" id="a12">
+        <div id="array12" class="arraytext"></div>
+      </div>
+      <div class="arraycell" id="a13">
+        <div id="array13" class="arraytext"></div>
+      </div>
+      <div class="arraycell" id="a14">
+        <div id="array14" class="arraytext"></div>
+      </div>
+      <div class="arraycell" id="a15">
+        <div id="array15" class="arraytext"></div>
+      </div>
+      <div class="arraycell" id="a16">
+        <div id="array16" class="arraytext"></div>
+      </div>
+    </div>
+
+    <span id="codeLine1">for i = 1 to A.length</span>
+    <span id="codeLine2">swap A[i] with A[Random(i,A.length)]</span>
+
+    <button style="border: solid red 2px; background: #eef;"
+    onclick="stepZero()">&nbsp;Restart&nbsp;</button>
+    <button style="border: solid red 2px; background: #fee;"
+    onclick="stepAlgo()">&nbsp;Next&nbsp;</button>
+    <script src="RandomizeInPlace.js"></script>
+
+  </body>
+</html>
