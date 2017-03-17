@@ -1,0 +1,306 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+  <head>
+  <title>Partition (for Quicksort)</title>
+  <style type="text/css">
+    body {
+       font-family: "Trebuchet MS", Skia, "Lucida Sans Unicode", sans-serif;
+       font-size: 16px;
+       margin: 2.5em auto 5em 5% ;
+       width: 90%;
+    }
+
+    #header {
+       margin: 3em 0 ;
+       border: 3px #369;
+       border-style: solid solid ;
+       padding: 0em  2em 0 ;
+       text-align: center ;
+    }
+
+    #header .title {
+       font-size: 1.6em ;
+       margin-bottom: 0 ;
+    }
+
+    #footer {
+       margin: 3em 0 ;
+       /*border: 2px #036;*/
+       border: 3px #369;
+       border-style: solid solid ;
+       padding: .7em ;
+
+    }
+
+    #footer img {
+       border: none ;
+    }
+
+    .section {
+       font-size: 1.1em ;
+       font-weight: bold ;
+    }
+
+    a {
+       color: #339 ;
+       text-decoration: none ;
+    }
+
+    .mybox {
+       border: 3px #369;
+       border-style: solid solid ;
+       padding: 1.5em ;
+       margin: 2em 0 ;
+    }
+
+    .prebox {
+       padding: 1em ;
+       background: #ffc;
+       overflow: scroll;
+    }
+
+    .arraytext {
+       float: left;
+       text-align: center;
+       width: 100%;
+       margin-top: .5em ;
+       font-size: 1.5em ;
+    }
+
+    .arraycell {
+    	float: left;
+    	width: 3em ;
+    	height: 3em ;
+    	background: #999 ;
+    }
+  </style>
+
+  <script type="text/javascript">
+
+    var redarray = [
+    				"#fcc","#fcc", "#fbb","#fbb", "#faa","#faa", "#f99","#f99",
+    				"#f88",	"#f77","#f66", "#f55",  "#f44",  "#f33", "#f22", "#f11"
+    				] ;
+    var bluearray =[ "#00f", "#11f", "#22f", "#33f", "#44f", "#55f", "#66f", "#77f",
+    				"#88f", "#99f", "#aaf", "#bbf", "#ccf", "#ddf", "#eef", "#fff" ] ;
+    var purplearray = [  "#fdf", "#fcf", "#fdf", "#fcf", "#fbf", "#fcf", "#fbf", "#faf",
+    			"#f9f", "#f8f", "#f7f","#f6f",  "#f5f", "#f4f", "#f3f", "#f2f" ] ;
+
+    var cb_color  = "#ffc" ; //code background
+    var cbh_color = "#faa" ; //code background highlight
+
+    var lessthanEnd ;
+    var greaterthanEnd ;
+    var pivotValue ;
+    var step ;
+
+    function permute(n) {
+       var i ;
+       a = new Array(n) ;
+       for ( i=0; i<n; i++ ) a[i] = i ;
+       for ( i=n-1; 0<=i; i-- ) {
+          var j ;
+          j = Math.floor(i*Math.random()) ;
+          var k = a[j] ;
+          a[j] = a[i] ;
+          a[i] = k ;
+       }
+       return a ;
+    }
+
+    function setElementValue(elementId, value) {
+    	if ( document.getElementById(elementId).innerText!=undefined ) {
+    		document.getElementById(elementId).innerText = value ;
+    	} else {
+    		document.getElementById(elementId).textContent = value ;
+    	}
+    }
+
+    function stepZero() {
+      a = permute(16);
+    	var i ;
+    	for ( i=1; i<17;i++ ) {
+    		document.getElementById('n'+i).style.background = bluearray[16-i] ;
+    		document.getElementById('n'+i).style.color = "black" ;
+    		setElementValue('array'+i, a[i-1]) ;
+    	}
+    	lessthanEnd = -1 ;
+    	greaterthanEnd = -1 ;
+    	pivotValue = a[15] ;
+    	step = 'greater than' ;
+
+    	document.getElementById("codeloc0").style.background = cb_color ;
+    	document.getElementById("codeloc1").style.background = cb_color ;
+    	document.getElementById("codeloc2").style.background = cb_color ;
+    	document.getElementById("codeloc3").style.background = cb_color ;
+
+    	setCodeColors(0) ;
+    }
+
+    function setCellColor(cell, color) {
+    	document.getElementById('n'+cell).style.background = color ;
+    }
+
+    function redrawArray() {
+    	// for 1 up to i, if non-empty, use red
+    	// for 1 up to j, if non-empty, use green (grey?) ;
+    	var i ;
+    	for ( i=0; i<=lessthanEnd; i++ ) {
+    		setCellColor(i+1,redarray[16-(i+1)]) ;
+    	}
+    	for ( i=(lessthanEnd+1); i<=greaterthanEnd; i++ ) {
+    		setCellColor(i+1,purplearray[16-(i-lessthanEnd+1)]) ;
+    	}
+    	for ( i=1; i<17; i++ ) {
+    	    setElementValue('array'+i, a[i-1]) ;
+    	}
+    }
+
+    function algStep() {
+    	switch (step) {
+    	case 'greater than':
+    		greaterthanEnd++ ;
+    		if ( greaterthanEnd==15 ) {
+    			step = 'swap pivot' ;
+    			break ;
+    		}
+    		redrawArray() ;
+    		setCodeColors(1) ;
+    		step = 'less than' ;
+    		break ;
+    	case 'less than':
+    		if ( a[greaterthanEnd]<pivotValue ) {
+    			lessthanEnd++ ;
+    			var t = a[greaterthanEnd] ;
+    			a[greaterthanEnd] = a[lessthanEnd] ;
+    			a[lessthanEnd] = t ;
+    		}
+    		redrawArray() ;
+    		setCodeColors(2) ;
+    		step = 'greater than' ;
+    		break ;
+    	case 'swap pivot':
+    		lessthanEnd++ ;
+    		var t = a[15] ;
+    		a[15] = a[lessthanEnd] ;
+    		a[lessthanEnd] = t ;
+    		redrawArray() ;
+    		setCodeColors(3) ;
+    		setCellColor(lessthanEnd+1,bluearray[1]) ;
+    		step = 'end' ;
+    		break ;
+    	case 'end':
+    		break ;
+    	}
+    }
+
+    function setCodeColors(i) {
+        document.getElementById("codeloc0").style.background = cb_color ;
+      	document.getElementById("codeloc1").style.background = cb_color ;
+      	document.getElementById("codeloc2").style.background = cb_color ;
+      	document.getElementById("codeloc3").style.background = cb_color ;
+        document.getElementById("codeloc"+i).style.background = cbh_color ;
+    }
+
+  </script>
+
+  </head>
+  <body onload="stepZero();">
+    <div class="mybox">
+
+      <div id="array">
+        <div class="arraycell" id="n1">
+          <div id="array1" class="arraytext"></div>
+        </div>
+        <div class="arraycell" id="n2">
+          <div id="array2" class="arraytext"></div>
+        </div>
+        <div class="arraycell" id="n3">
+          <div id="array3" class="arraytext"></div>
+        </div>
+        <div class="arraycell" id="n4">
+          <div id="array4" class="arraytext"></div>
+        </div>
+        <div class="arraycell" id="n5">
+          <div id="array5" class="arraytext"></div>
+        </div>
+        <div class="arraycell" id="n6">
+          <div id="array6" class="arraytext"></div>
+        </div>
+        <div class="arraycell" id="n7">
+          <div id="array7" class="arraytext"></div>
+        </div>
+        <div class="arraycell" id="n8">
+          <div id="array8" class="arraytext"></div>
+        </div>
+        <div class="arraycell" id="n9">
+          <div id="array9" class="arraytext"></div>
+        </div>
+        <div class="arraycell" id="n10">
+          <div id="array10" class="arraytext"></div>
+        </div>
+        <div class="arraycell" id="n11">
+          <div id="array11" class="arraytext"></div>
+        </div>
+        <div class="arraycell" id="n12">
+          <div id="array12" class="arraytext"></div>
+        </div>
+        <div class="arraycell" id="n13">
+          <div id="array13" class="arraytext"></div>
+        </div>
+        <div class="arraycell" id="n14">
+          <div id="array14" class="arraytext"></div>
+        </div>
+        <div class="arraycell" id="n15">
+          <div id="array15" class="arraytext"></div>
+        </div>
+        <div class="arraycell" id="n16">
+          <div id="array16" class="arraytext"></div>
+        </div>
+      </div>
+      <p>
+      <div class="prebox" style="width:30em;">
+      <span id="codeloc0">
+      &nbsp;&nbsp;Set Pivot to value at A[r]
+      <br>
+      &nbsp;&nbsp;Set low numbers boundary i to p-1
+      <br>
+      &nbsp;&nbsp;Set high numbers boundary j to p-1
+      </span>
+      <br>
+      <span id="codeloc4">
+      while p&lt;r
+      </span>
+      <br>
+      <span id="codeloc1">
+      &nbsp;&nbsp;j++
+      </span>
+      <br>
+
+      <span id="codeloc2">
+      &nbsp;&nbsp;if A[j] &lt; Pivot
+      <br>
+      &nbsp;&nbsp;&nbsp;&nbsp; then swap values in A[++i] and A[j]
+      </span>
+      <br>
+
+      <span id="codeloc3">
+      swap values in A[++i] and A[r]
+      </span>
+      <br>
+      return i
+      </div>
+
+      <table>
+      <tr>
+      <td style="border: solid red 2px; background: #eef;"
+      onclick="stepZero()">&nbsp;Restart&nbsp;
+      <td style="border: solid red 2px; background: #fee;"
+      onclick="algStep()">&nbsp;Next&nbsp;
+      </table>
+
+      </div>
+    </div><!-- i do not know if i need this extra div close -->
+
+  </body>
+</html>
