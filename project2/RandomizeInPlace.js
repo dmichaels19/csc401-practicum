@@ -1,17 +1,29 @@
+//TODO jQueryfy
 var cb_color  = "#ffe" ; //code background
 var cbh_color = "#9f7" ; //code background highlight
 
 var step ;
 var index;
 var swapIndex;
-var a ;
+var a;
+var arrayMade = false;
+
+function makeArrayElement (i) {
+      $('#array').append('<div class="arraycell" id="a' + i + '"><div id="array'+i+'" class="arraytext"></div></div>');
+}
 
 function stepZero() {
-  a = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16];
-  console.log(a);
+  a = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15];
+  if(!arrayMade){
+    for (i=0; i<a.length; i++) {
+       makeArrayElement(i);
+    }
+  }
+  arrayMade=true;
   for (var i=0; i<16;i++ ) {
-    document.getElementById('n'+i).style.background = "grey";//needed when reset
-    document.getElementById('n'+i).style.color = "black";//needed when reset
+    //document.getElementById('a'+i).style.background = "grey";//needed when reset
+    document.getElementById('a'+i).style.background = "grey";
+    document.getElementById('a'+i).style.color = "black";//needed when reset
     setElementValue('array'+i, a[i]) ;
   }
   step = 1 ;
@@ -25,17 +37,12 @@ function stepZero() {
 function stepAlgo() {
   switch (step) {
   case 1:
-    console.log("step: " + step);
-    console.log("index: " + index + "swapIndex: " + swapIndex);
     index++;
-    console.log("index: " + index + "swapIndex: " + swapIndex);
     setCellColor(index,'blue');
     setCodeColors(0) ;
     step = 2;
     break ;
   case 2:
-    console.log("step: " + step);
-    console.log("index: " + index + "swapIndex: " + swapIndex);
     do {
         swapIndex = Math.floor(16*Math.random());
     } while (swapIndex == index);
@@ -44,8 +51,6 @@ function stepAlgo() {
     step = 3;
     break ;
   case 3:
-    console.log("step: " + step);
-    console.log("index: " + index + "swapIndex: " + swapIndex);
     var temp = a[index];
     a[index] = a[swapIndex];
     a[swapIndex] = temp;
@@ -54,10 +59,8 @@ function stepAlgo() {
     setElementValue('array'+index, a[index]); //'array' right name?
     setElementValue('array'+swapIndex, a[swapIndex]);
     step = 4;
-    console.log(a);
     break ;
   case 4:
-    console.log("step: " + step);
     setCellColor(index,'green');
     if (swapIndex < index) {
       setCellColor(swapIndex,'green');
@@ -84,7 +87,7 @@ function setElementValue(elementId, value) {
 }
 
 function setCellColor(cell, color) {
-  document.getElementById('n'+cell).style.background = color ;
+  document.getElementById('a'+cell).style.background = color ;
 }
 
 function setCodeColors(line) {

@@ -1,86 +1,67 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="CSC401 Practicum Homepage">
     <meta name="author" content="Devin Michaels">
-    <meta property="og:url"                content="http://web.cs.miami.edu/home/dmic401/" />
+    <meta property="og:url"                content="http://web.cs.miami.edu/home/dmic401/project2/RandomizeInPlace.html" />
     <meta property="og:type"               content="website" />
     <meta property="og:title"              content="Randomize In Place" />
     <meta property="og:description"        content="Animation for CLRS Randomize In Place algorithm." />
     <meta property="og:image"              content="" />
     <!--TODO update URLs in all meta tags in files  -->
+    <!--TODO make array look good on mobile devices  -->
     <title>Randomize In Place</title>
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
-    <link href="csc401.css" rel="stylesheet">
+    <link href="../csc401.css" rel="stylesheet">
 
   </head>
   <body onload="stepZero();">
-    <!--make this procedurally generated-->
-    <div id="array">
-      <div class="arraycell" id="n0">
-        <div id="array0" class="arraytext"></div>
+    <div class="container">
+      <div class="jumbotron">
+          <h1 class="display-3">Randomize In Place</h1>
+          <p class="lead">This algorithm randomizes an originally sorted array
+          in place. Click step forward to see the algorithm and corresponding
+          pseudocode select the next index and swap it with a random index.
+          Click restart to restart the animation.</p>
       </div>
-      <div class="arraycell" id="n1">
-        <div id="array1" class="arraytext"></div>
+      <div class="row">
+        <div class="col-sm-10 offset-sm-1">
+          <div id="array"></div>
+        </div>
       </div>
-      <div class="arraycell" id="n2">
-        <div id="array2" class="arraytext"></div>
-      </div>
-      <div class="arraycell" id="n3">
-        <div id="array3" class="arraytext"></div>
-      </div>
-      <div class="arraycell" id="n4">
-        <div id="array4" class="arraytext"></div>
-      </div>
-      <div class="arraycell" id="n5">
-        <div id="array5" class="arraytext"></div>
-      </div>
-      <div class="arraycell" id="n6">
-        <div id="array6" class="arraytext"></div>
-      </div>
-      <div class="arraycell" id="n7">
-        <div id="array7" class="arraytext"></div>
-      </div>
-      <div class="arraycell" id="n8">
-        <div id="array8" class="arraytext"></div>
-      </div>
-      <div class="arraycell" id="n9">
-        <div id="array9" class="arraytext"></div>
-      </div>
-      <div class="arraycell" id="n10">
-        <div id="array10" class="arraytext"></div>
-      </div>
-      <div class="arraycell" id="n11">
-        <div id="array11" class="arraytext"></div>
-      </div>
-      <div class="arraycell" id="n12">
-        <div id="array12" class="arraytext"></div>
-      </div>
-      <div class="arraycell" id="n13">
-        <div id="array13" class="arraytext"></div>
-      </div>
-      <div class="arraycell" id="n14">
-        <div id="array14" class="arraytext"></div>
-      </div>
-      <div class="arraycell" id="n15">
-        <div id="array15" class="arraytext"></div>
+      <div class="row">
+        <div class="col-sm-10 offset-sm-1">
+          <pre><code><span id="codeloc0">for i = 1 to A.length:</span>
+    <span id="codeloc1">swap A[i] with A[Random(i,A.length)]</span>
+          </code></pre>
+
+          <button type="button" class="btn btn-primary" onclick="stepZero()">Restart</button>
+          <button type="button" class="btn btn-primary" onclick="stepAlgo()">Next</button>
+        </div>
       </div>
 
+      <!-- Site Hierarchy -->
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="../index.html">Home</a></li>
+        <li class="breadcrumb-item"><a href=".">Project 2</a></li>
+        <li class="breadcrumb-item active">Randomize In Place</li>
+      </ol>
     </div>
-    <span id="codeloc0">for i = 1 to A.length:</span>
-    <span id="codeloc1">&nbsp;&nbsp;&nbsp;&nbsp;swap A[i] with A[Random(i,A.length)]</span>
 
-    <button onclick="stepZero()">Restart</button>
-    <button onclick="stepAlgo()">Next</button>
+    <footer class="footer">
+      <div class="container text-center">
+        <span class="text-muted">Copyright &copy; 2017 Devin Michaels</span>
+      </div>
+    </footer>
 
     <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
-    <script src="example.js"></script>
+    <script src="RandomizeInPlace.js"></script>
   </body>
 </html>

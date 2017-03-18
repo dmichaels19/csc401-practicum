@@ -5,3 +5,19 @@
     width:100%;
     height:auto;
 }
+.green {
+  background:green;
+}
+.arraytext {
+   float: left;
+   text-align: center;
+   width: 100%;
+   margin-top: .5em ;
+   font-size: 1.2em ;
+}
+.arraycell {
+	float: left;
+	width: 3em ;
+	height: 3em ;
+	background: "grey" ;
+}
